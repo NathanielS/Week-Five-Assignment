@@ -18,6 +18,13 @@ def main():
 	"""
 	
 	Deck = []
+	for suite in range(suites):
+        for typecard in range(1, typecard+1):
+            cards.append(typecard)
+    random.shuffle(Deck)
+    
+    PlayerAHand = deck[:len(Deck)/2]
+    PlayerBHand = deck[len(Deck)/2:]
 	PlayerAHand = []
 	PlayerBHand = []
 	gameCounter = 0
@@ -57,12 +64,44 @@ def playRound(PlayerA, PlayerB):
 	See the README.md for the variations of
 	the game to program.
 	'''
+	ACard = PlayerAHand.pop()
+	BCard = PlayerBHand.pop()
+	
+	print("Player A plays " + str(getRank(ACard)))
+	print("player B plays " + str(getRank(BCard)))
+	
+	if getRank(ACard) > getRank(BCard):
+		print("Player A wins\n")
+		PlayerA.insert(0,ACard)
+		PlayerA.insert(0,BCard)
+	elif getRank(ACard) < getRank(BCard):
+		print("Player B wins\n")
+		PlayerB.insert(0,ACard)
+		PlayerB.insert(0,BCard)
+	else:
+		PlayerA.append(ACard)
+		PlayerB.append(BCard)
+		PlayerA, PlayerB = WAR(PlayerA, PlayerB)
+	
 	return PlayerA, PlayerB
 
 
 def WAR(PlayerA, PlayerB):
 	# See the README.md file for instructions on coding 
 	# This module.
+	print("War")
+	if len(PlayerA) > 5 and len(PlayerB) > 5:
+		aHand = []
+		bHand = []
+		for x in range(5):
+			aHand.append(PlayerA.pop())
+			bHand.append(PlayerB.pop())
+			
+	if getRank(aHand[4]) > getRank(bHand[4]):
+		PlayerA = aHand + bHand + PlayerA
+	elif getRank(aHand[4]) < getRank(bHand[4]):
+		PlayerB = aHand + bHand + PlayerB
+	else:
 
 	return PlayerA, PlayerB
 
@@ -73,3 +112,4 @@ def getRank(anyCard):
 
 if __name__ == '__main__':
 	main()
+
